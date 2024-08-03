@@ -1,0 +1,47 @@
+import pandas as pd
+import numpy as np
+
+df = pd.read_excel(r"C:\Users\year3\Desktop\lab2\Lab Session Data.xlsx")
+
+print(" DataFrame:")
+print(df)
+
+df1 = df.iloc[:, 1:4]
+print("\nDataFrame after slicing columns 1 to 3:")
+print(df1)
+
+df2 = df.iloc[:, 4]
+print("\nSeries after slicing column 4:")
+print(df2)
+
+matrix = df1.values
+
+rank = np.linalg.matrix_rank(matrix)
+print("\nRank of the matrix df1:", rank)
+
+r = df.shape[0]
+print("Number of rows in the original DataFrame:", r)
+
+d1 = pd.DataFrame(df2)
+m = d1.values
+
+rank1 = np.linalg.matrix_rank(m)
+print("Rank of the matrix df2:", rank1)
+
+t1 = np.linalg.pinv(matrix)
+print("\nPseudoinverse of df1:")
+print(t1)
+
+# here we converyt in 2d array before we do pseudi inverse
+m2 = d1.values.reshape(-1, 1)
+t2 = np.linalg.pinv(m2)
+print("\nPseudoinverse of df2 (reshaped):")
+print(t2)
+
+
+#cost is
+
+print(t1 @ df2)
+
+df['Customer_Class'] = df['Payment'].apply(lambda x: 'RICH' if x > 200 else 'POOR')
+Print(df)
